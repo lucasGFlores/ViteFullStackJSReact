@@ -1,0 +1,32 @@
+.task-container {
+  background-color: #444;
+  margin: 8px 0;
+  padding: 15px 20px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: space-between;
+  color: antiquewhite;
+  align-items: center;
+  border-color: 6px solid chartreuse;
+}
+.task-tittle {
+  padding: auto;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.boxButton  {
+  width: 30%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.boxButton button {
+  padding: 0 10px;
+  color: chartreuse;
+  background-color: #444;
+  font-size: 20px;
+}
+.boxButton button:hover{
+  transform: 1.1;
+}
