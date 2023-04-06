@@ -1,11 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AddTask from "./AddTask";
 import Tasks from "./Tasks"
 import "./ListaDeAfazeres.css"
 import { v4 as uuidv4 } from "uuid";
 import api from '../../api'
 function ListaDeAfazeres()  {
-
+  const [tasks, setTasks] = useState([
+  ]);
+useEffect(() =>{
+getTaskInDB()
+},[])
+const getTaskInDB = async () => {
+  api.get("/listaDeAfazeres").then(res => {
+    setTasks(res.data)
+  }).catch(err =>{console.log(err)})
+}
   const enterTaskInDB = async (task) => {
     try{
       await api.post("/listaDeAfazeres",task)
@@ -13,18 +22,7 @@ function ListaDeAfazeres()  {
       console.log(err)
     }
   }
-      const [tasks, setTasks] = useState([
-          {
-            id: "1",
-            tittle: "explodir a união soviética",
-            completed: false,
-          },
-          {
-            id: "2",
-            tittle: "estudar programation",
-            completed: false,
-          },
-        ]);
+     
         const handleTaskAddition = (taskTittle) => {
           if (taskTittle === "") {
             taskTittle = "MAS NUM TEM NADA";

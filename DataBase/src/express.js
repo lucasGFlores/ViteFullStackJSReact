@@ -36,9 +36,8 @@ app.get('/noticias', (req,res) => {
  // pegar bagulho da databse
  app.get('/listaDeAfazeres/:id', async (req,res) =>{
     try{
-        
-        const id = req.params.id;
-    const task = await TaskModel.findById(id)
+        const taskList = await TaskModel.find({})
+        const task = taskList.filter(task => task.id == req.params.id)[0];
     return res.status(201).json(task)
     }catch(error){
         return res.status(500).send(error.message)
@@ -64,10 +63,14 @@ app.get('/noticias', (req,res) => {
  });
 app.patch("/listaDeAfazeres/:id", async(req,res) =>{
     try{
-        const id = req.params.id
-        const task = await TaskModel.findByIdAndUpdate(id,req.body,{new: true})
-        res.status.json(task) 
+        const taskList = await TaskModel.find({})
+        const taskDB = taskList.filter(task => task.id == req.params.id);
+        const {_id}  = (taskDB[0])
+
+        const task = await TaskModel.findByIdAndUpdate(_id,req.body,{new: true})
+       res.status(200).json(task) 
     }catch(err){
+        console.log(err.message)
         res.status(500).send(error.message)
     }
 })
